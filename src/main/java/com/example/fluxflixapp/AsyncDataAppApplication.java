@@ -102,7 +102,7 @@ class DataService {
 	}
 
 	public Flux<DataEvent> streamStreams(Data data) {
-		Flux.fromIterable(dataRepository.findAll());
+
 		Flux<Long> interval = Flux.interval(Duration.ofSeconds(1));
 		Flux<DataEvent> events = Flux.fromStream(Stream.generate(() -> new DataEvent(data, new Date(), randomUser())));
 		return Flux.zip(interval, events).map(Tuple2::getT2);
