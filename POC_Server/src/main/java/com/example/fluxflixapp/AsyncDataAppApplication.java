@@ -33,10 +33,10 @@ import reactor.util.function.Tuple2;
 @SpringBootApplication
 public class AsyncDataAppApplication {
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		SpringApplication.run(AsyncDataAppApplication.class, args);
 	}
-
+*/
 	@Bean
 	CommandLineRunner demo(DataRepository dataRepository) {
 		return args -> {
@@ -48,8 +48,8 @@ public class AsyncDataAppApplication {
 
 }
 
-@NoArgsConstructor
-@ToString
+//@NoArgsConstructor
+//@ToString
 class DataEvent {
 
 	private Data data;
@@ -154,8 +154,8 @@ interface DataRepository extends CrudRepository<Data, String> {
 }
 
 @Entity
-@NoArgsConstructor
-@ToString
+//@NoArgsConstructor
+//@ToString
 class Data {
 
 	@Id

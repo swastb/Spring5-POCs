@@ -39,15 +39,6 @@ public class AsyncDataAppApplication {
 	 * dataRepository.save(data)).forEach(System.out::println); }; }
 	 */
 
-	@PostConstruct
-	public void init() {
-		System.out.println("Before Adding to DB");
-		Stream.of("Name", "Card Owner", "Status", "State", "Last_Updated")
-				.map(name -> new Data(UUID.randomUUID().toString(), name, name + "_Val"))
-				.map(data -> dataRepository.save(data)).forEach(System.out::println);
-		System.out.println("Data is inserted");
-
-	}
 }
 
 class DataEvent {
@@ -109,6 +100,10 @@ class DataService {
 	}
 
 	public Flux<Data> all() {
+		return Flux.fromIterable(dataRepository.findAll());
+	}
+
+	public Flux<Data> add() {
 		System.out.println("Before Adding to DB");
 		Stream.of("Name", "Card Owner", "Status", "State", "Last_Updated")
 				.map(name -> new Data(UUID.randomUUID().toString(), name, name + "_Val"))
@@ -126,6 +121,16 @@ class DataService {
 	private String randomUser() {
 		String[] users = "arindam,debroop, mayukh,sourav,swastika".split(",");
 		return users[new Random().nextInt(users.length)];
+	}
+
+	@PostConstruct
+	public void init() {
+		System.out.println("Before Adding to DB");
+		Stream.of("Name", "Card Owner", "Status", "State", "Last_Updated")
+				.map(name -> new Data(UUID.randomUUID().toString(), name, name + "_Val"))
+				.map(data -> dataRepository.save(data)).forEach(System.out::println);
+		System.out.println("Data is inserted");
+
 	}
 }
 
@@ -146,6 +151,11 @@ class DataEngineController {
 	@GetMapping
 	public Flux<Data> all() {
 		return dataService.all();
+	}
+
+	@GetMapping(value = "/start")
+	public Flux<Data> start() {
+		return dataService.add();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
