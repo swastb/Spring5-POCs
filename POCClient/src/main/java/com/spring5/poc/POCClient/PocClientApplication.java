@@ -45,7 +45,8 @@ public class PocClientApplication {
 
 	/**
 	 * This is a dummy start method, which is supposed to make a call Adapter
-	 * and get a dummy acknowledgement
+	 * and get a dummy acknowledgement. To Start try
+	 *  curl http://localhost:8180/start?input=TH1
 	 * 
 	 * @param input
 	 * @return
